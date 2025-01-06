@@ -40,7 +40,7 @@ export default {
 
 <style scoped>
 .jumbotron {
-  background-image: url('../assets/images/jumbotron-bg.webp');
+  background-image: url('../../../assets/images/jumbotron-bg.webp');
   background-size: cover;
   background-position: center; color: white;
   position: relative;

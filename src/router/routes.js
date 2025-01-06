@@ -2,7 +2,7 @@ export default [
   {
     name: 'home',
     path: '/',
-    component: () => import('./../pages/Home.vue'),
+    component: () => import('../pages/Home/Home.vue'),
   },
   {
     name: 'contact-us',
