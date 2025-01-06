@@ -5,8 +5,7 @@ import router from './router/router.js';
 
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import './styles/custom.css';
+import 'bootswatch/dist/spacelab/bootstrap.min.css';
 
 const app = createApp(App);
 

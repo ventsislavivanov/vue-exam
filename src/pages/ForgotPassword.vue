@@ -7,14 +7,15 @@ export default {
 <template>
   <div class="container vh-100 d-flex justify-content-center align-items-center">
     <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
-      <h3 class="text-center mb-4">Forgot Password</h3>
+      <h3 class="text-center mb-4">
+        Forgot Password
+      </h3>
       <p class="text-center">
         Enter your email address below, and we'll send you instructions to reset your password.
       </p>
       <form>
         <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+          <input id="email" type="email" class="form-control" placeholder="Enter your email" required>
         </div>
         <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
       </form>

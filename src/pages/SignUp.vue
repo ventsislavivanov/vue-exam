@@ -1,5 +1,38 @@
 <script>
+import useVuelidate from '@vuelidate/core';
+import { alphaNum, email, helpers, maxLength, minLength, numeric, required, sameAs } from '@vuelidate/validators';
 
+export default {
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
+  },
+  data() {
+    return {
+      formData: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        gender: '',
+        dob: '',
+      },
+    };
+  },
+  validations: {
+    formData: {
+      firstName: { required },
+      lastName: { required },
+      email: { required, email },
+      password: { required, minLength: minLength(8) },
+      confirmPassword: { required, sameAsPassword: sameAs('password') },
+      gender: { required },
+      dob: { required },
+    },
+  },
+};
 </script>
 
 <template>
@@ -10,80 +43,159 @@
           <h3 class="text-center mb-4">
             Register User
           </h3>
+
           <form action="/register" method="POST">
-            <!-- Име -->
-            <div class="mb-3">
-              <label for="firstName" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="firstName" name="firstName" required>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <input
+                    id="firstName"
+                    v-model="v$.formData.firstName.$model"
+                    type="text"
+                    class="form-control"
+                    name="firstName"
+                    placeholder="First Name"
+                    required
+                  >
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <input
+                    id="lastName"
+                    v-model="v$.formData.lastName.$model"
+                    type="text"
+                    class="form-control"
+                    name="lastName"
+                    placeholder="Last Name"
+                    required
+                  >
+                </div>
+              </div>
             </div>
 
-            <!-- Фамилия -->
-            <div class="mb-3">
-              <label for="lastName" class="form-label">Фамилия</label>
-              <input type="text" class="form-control" id="lastName" name="lastName" required>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mb-3">
+                  <input
+                    id="email"
+                    v-model="v$.formData.email.$model"
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    placeholder="Email"
+                    required
+                  >
+                </div>
+              </div>
             </div>
 
-            <!-- Имейл -->
-            <div class="mb-3">
-              <label for="email" class="form-label">Имейл адрес</label>
-              <input type="email" class="form-control" id="email" name="email" required>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <input
+                    id="password"
+                    v-model="v$.formData.password.$model"
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    placeholder="Password"
+                    required
+                  >
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <input
+                    id="confirmPassword"
+                    v-model="v$.formData.confirmPassword.$model"
+                    type="password"
+                    class="form-control"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                  >
+                </div>
+              </div>
             </div>
 
-            <!-- Парола -->
-            <div class="mb-3">
-              <label for="password" class="form-label">Парола</label>
-              <input type="password" class="form-control" id="password" name="password" required>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="gender" class="form-label">Gender</label><br>
+
+                  <input
+                    id="male"
+                    type="radio"
+                    name="gender"
+                    value="Male"
+                    class="form-check-input"
+                  >
+                  <label for="male" class="form-check-label">Male</label><br>
+
+                  <input
+                    id="female"
+                    type="radio"
+                    name="gender"
+                    value="Female"
+                    class="form-check-input"
+                  >
+                  <label for="female" class="form-check-label">Female</label><br>
+
+                  <input
+                    id="other"
+                    type="radio"
+                    name="gender"
+                    value="Other"
+                    class="form-check-input"
+                  >
+                  <label for="other" class="form-check-label">Other</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <input
+                    id="dob"
+                    type="date"
+                    class="form-control"
+                    name="dob"
+                    placeholder="Date of Birth"
+                    required
+                  >
+                </div>
+
+                <div class="mb-3">
+                  <input
+                    id="phone"
+                    type="tel"
+                    class="form-control"
+                    name="phone"
+                    placeholder="Phone"
+                  >
+                </div>
+
+                <div class="mb-3">
+                  <input
+                    id="address"
+                    type="text"
+                    class="form-control"
+                    name="address"
+                    placeholder="Address"
+                  >
+                </div>
+              </div>
             </div>
 
-            <!-- Потвърдете паролата -->
-            <div class="mb-3">
-              <label for="confirmPassword" class="form-label">Потвърдете паролата</label>
-              <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-            </div>
-
-            <!-- Дата на раждане -->
-            <div class="mb-3">
-              <label for="dob" class="form-label">Дата на раждане</label>
-              <input type="date" class="form-control" id="dob" name="dob" required>
-            </div>
-
-            <!-- Пол -->
-            <div class="mb-3">
-              <label for="gender" class="form-label">Пол</label><br>
-              <input type="radio" id="male" name="gender" value="Male" class="form-check-input">
-              <label for="male" class="form-check-label">Мъж</label><br>
-              <input type="radio" id="female" name="gender" value="Female" class="form-check-input">
-              <label for="female" class="form-check-label">Жена</label><br>
-              <input type="radio" id="other" name="gender" value="Other" class="form-check-input">
-              <label for="other" class="form-check-label">Друг</label>
-            </div>
-
-            <!-- Телефон -->
-            <div class="mb-3">
-              <label for="phone" class="form-label">Телефонен номер</label>
-              <input type="tel" class="form-control" id="phone" name="phone">
-            </div>
-
-            <!-- Адрес -->
-            <div class="mb-3">
-              <label for="address" class="form-label">Адрес</label>
-              <input type="text" class="form-control" id="address" name="address">
-            </div>
-
-            <!-- Чекбокс за условия -->
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-              <label class="form-check-label" for="terms">Прочетох и приемам условията за ползване</label>
-            </div>
-
-            <!-- CAPTCHA (по избор) -->
             <div class="mb-3">
               <label for="captcha" class="form-label">Captcha</label>
               <!-- Вгради CAPTCHA тук -->
             </div>
 
-            <!-- Бутон за регистрация -->
-            <button type="submit" class="btn btn-primary w-100">Регистрирай се</button>
+            <button type="submit" class="btn btn-primary w-100">
+              Register
+            </button>
           </form>
         </div>
       </div>

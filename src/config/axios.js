@@ -1,5 +1,7 @@
 import axios from 'axios';
 
-const axiosBlogger = axios.create({
-    baseURL: 'https://dummyjson.com',
+const axiosThemoviedb = axios.create({
+  baseURL: 'https://api.themoviedb.org/3/',
 });
+
+export default axiosThemoviedb;
