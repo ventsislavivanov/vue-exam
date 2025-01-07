@@ -1,5 +1,10 @@
 <script>
-import {getPopularMovies, getKidsMovies, getInTheaterMovies, getBestDramaMovies} from '../../services/movieServices.js';
+import {
+  getPopularMovies,
+  getKidsMovies,
+  getInTheaterMovies,
+  getBestDramaMovies,
+} from '../../services/movieServices.js';
 import Jumbotron from './comp/Jumbotron.vue';
 import Movie from './comp/Movie.vue';
 

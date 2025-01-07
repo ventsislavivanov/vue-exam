@@ -15,6 +15,11 @@ export default [
     component: () => import('../pages/Movies/Details.vue'),
   },
   {
+    name: 'search-movie',
+    path: '/search-movie/:query?',
+    component: () => import('../pages/Movies/SearchMovie.vue'),
+  },
+  {
     name: 'contact-us',
     path: '/contact-us',
     component: () => import('./../pages/ContactUs.vue'),

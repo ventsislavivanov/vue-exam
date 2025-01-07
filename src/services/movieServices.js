@@ -8,7 +8,7 @@ const POPULAR = 'discover/movie?sort_by=popularity.desc';
 const IN_THEATER = 'discover/movie?primary_release_date.gte=2019-01-01&primary_release_date.lte=2019-01-31';
 const KIDS = 'discover/movie?certification_country=US&certification.lte=G&sort_by=popularity.desc';
 const BEST_DRAMA = 'discover/movie?with_genres=18&primary_release_year=2019';
-const MOVIE = 'movie/';
+
 
 export async function getPopularMovies() {
   try {
@@ -56,8 +56,19 @@ export async function getBestDramaMovies() {
 
 export async function getMovieDetails(id) {
   try {
-    const response = await axiosTheMovieDb.get(MOVIE + id + API_KEY_ALT);
+    const response = await axiosTheMovieDb.get('movie/' + id + API_KEY_ALT);
     return response.data;
+  }
+  catch (e) {
+    console.error('Oops unexpected', e);
+    return [];
+  }
+}
+
+export async function getSearchMovie(query) {
+  try {
+    const response = await axiosTheMovieDb.get('search/movie' + API_KEY_ALT + `&query=${query}`);
+    return response.data.results;
   }
   catch (e) {
     console.error('Oops unexpected', e);

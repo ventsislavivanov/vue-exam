@@ -1,4 +1,7 @@
 <script>
+import useVuelidate from '@vuelidate/core';
+import { required, minLength } from '@vuelidate/validators';
+
 export default {
   props: {
     title: String,
@@ -6,6 +9,31 @@ export default {
     callToAction: String,
     path: Object,
   },
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
+  },
+  data() {
+    return {
+      searchForm: {
+        query: '',
+      },
+    };
+  },
+  methods: {
+    async onSearch() {
+      this.$router.push({ name: 'search-movie', params: { query: this.searchForm.query } });
+    },
+  },
+  validations: {
+    searchForm: {
+      query: {
+        required,
+        minLength: minLength(3),
+      },
+    },
+  }
 };
 </script>
 
@@ -33,14 +61,23 @@ export default {
             Log In Now
           </router-link>
         </p>
-      </div>
 
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-          Search
-        </button>
-      </form>
+        <form @submit.prevent="onSearch" class="form d-flex">
+          <input
+            v-model="searchForm.query"
+            class="form-control me-sm-2"
+            type="search"
+            placeholder="Search"
+          >
+          <button
+            :disabled="v$.searchForm.$invalid"
+            class="btn btn-light my-2 my-sm-0"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
