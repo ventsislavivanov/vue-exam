@@ -1,5 +1,14 @@
 <script>
+import {authenticationUser} from "../services/movieServices.js";
 
+export default {
+  methods: {
+    async onsubmit() {
+      const res = await authenticationUser();
+      console.log(res)
+    }
+  }
+}
 </script>
 
 <template>
@@ -9,7 +18,7 @@
         <h3 class="text-center mb-4">
           Login
         </h3>
-        <form>
+        <form @submit.prevent="onsubmit">
           <div class="input-group mb-3">
             <span class="input-group-text">
               <font-awesome-icon :icon="['fas', 'user']" />
