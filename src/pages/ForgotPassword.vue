@@ -14,8 +14,11 @@ export default {
         Enter your email address below, and we'll send you instructions to reset your password.
       </p>
       <form>
-        <div class="mb-3">
-          <input id="email" type="email" class="form-control" placeholder="Enter your email" required>
+        <div class="input-group mb-3">
+          <span class="input-group-text">
+            <font-awesome-icon :icon="['fas', 'envelope']" />
+          </span>
+          <input type="email" class="form-control" placeholder="Enter your email">
         </div>
         <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
       </form>
@@ -26,23 +29,3 @@ export default {
   </div>
 </template>
 
-<style scoped>
-.card {
-  background-color: #495057;
-  color: white;
-}
-.btn-primary {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-.btn-primary:hover {
-  background-color: #0a58ca;
-  border-color: #0a53be;
-}
-a {
-  color: #0d6efd;
-}
-a:hover {
-  color: #0a58ca;
-}
-</style>

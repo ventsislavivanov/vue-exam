@@ -10,23 +10,30 @@
           Login
         </h3>
         <form>
-          <div class="mb-3">
-            <input id="email" type="email" class="form-control" placeholder="Enter your email" required>
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+              <font-awesome-icon :icon="['fas', 'user']" />
+            </span>
+            <input type="email" class="form-control" placeholder="Enter your email">
           </div>
 
-          <div class="mb-3">
-            <input id="password" type="password" class="form-control" placeholder="Enter your password" required>
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+             <font-awesome-icon :icon="['fas', 'lock']" />
+            </span>
+            <input type="password" class="form-control" placeholder="Enter your password">
           </div>
-
           <button type="submit" class="btn btn-primary w-100">
             Login
           </button>
         </form>
+
         <p class="text-center mt-3">
           <router-link :to="{ name: 'forgot-password' }">
             Forgot password?
           </router-link>
         </p>
+
         <p class="text-center">
           Don't have an account?
           <router-link :to="{ name: 'sign-up' }">
@@ -38,23 +45,4 @@
   </div>
 </template>
 
-<style scoped>
-.card {
-  background-color: #495057;
-  color: white;
-}
-.btn-primary {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-.btn-primary:hover {
-  background-color: #0a58ca;
-  border-color: #0a53be;
-}
-a {
-  color: #0d6efd;
-}
-a:hover {
-  color: #0a58ca;
-}
-</style>
+

@@ -75,3 +75,15 @@ export async function getSearchMovie(query) {
     return [];
   }
 }
+
+export async function authenticationUser() {
+  try {
+    const response = await axiosTheMovieDb.get('authentication' + API_KEY_ALT);
+    console.log('authenticationUser',response.data)
+    return response.data;
+  }
+  catch (e) {
+    console.error('Oops unexpected', e);
+    return [];
+  }
+}
