@@ -7,7 +7,6 @@ export default {
     title: String,
     description: String,
     callToAction: String,
-    path: Object,
   },
   setup() {
     return {
@@ -42,7 +41,7 @@ export default {
     <div class="overlay" />
     <div class="container">
       <div class="p-5 content">
-        <h1 class="display-4">
+        <h1 class="display-4 text-light">
           {{ title }}
         </h1>
 
@@ -54,12 +53,6 @@ export default {
 
         <p class="text-center">
           {{ callToAction }}
-        </p>
-
-        <p class="lead">
-          <router-link :to="path" class="btn btn-primary btn-lg" role="button">
-            Log In Now
-          </router-link>
         </p>
 
         <form @submit.prevent="onSearch" class="form d-flex">

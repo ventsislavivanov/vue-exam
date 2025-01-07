@@ -4,6 +4,7 @@ export default {
     return {
       links: [
         { name: 'movies', label: 'Movie' },
+        { name: 'about-us', label: 'About Us' },
         { name: 'contact-us', label: 'Contact Us' },
       ],
     };
@@ -50,6 +51,14 @@ export default {
               <div class="dropdown-divider" />
               <a class="dropdown-item" href="#">Separated link</a>
             </div>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link :to="{ name: 'login' }" class="btn btn-outline-light btn-lg" role="button">
+              Log In
+            </router-link>
           </li>
         </ul>
       </div>

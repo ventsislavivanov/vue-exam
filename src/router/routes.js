@@ -20,6 +20,11 @@ export default [
     component: () => import('../pages/Movies/SearchMovie.vue'),
   },
   {
+    name: 'about-us',
+    path: '/about-us',
+    component: () => import('./../pages/AboutUs.vue'),
+  },
+  {
     name: 'contact-us',
     path: '/contact-us',
     component: () => import('./../pages/ContactUs.vue'),
