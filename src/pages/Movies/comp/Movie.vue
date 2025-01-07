@@ -18,20 +18,20 @@ export default {
 </script>
 
 <template>
-  <div class="card mb-3">
+  <div class="card mb-3 h-100 d-flex flex-column">
     <img :src="posterPath" :alt="movie.title" class="d-block user-select-none" width="100%" height="200">
 
     <div class="card-body">
-      <p class="card-text">
+      <h5 class="card-text">
         {{ movie.title }}
-      </p>
+      </h5>
 
       <h6 class="card-text">
         {{ movie.release_date }}
       </h6>
     </div>
 
-    <div class="card-footer text-muted">
+    <div class="card-footer text-muted d-flex justify-content-center">
       <button
         :id="movie.id"
         @click="$emit('select', movie.id)"
