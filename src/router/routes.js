@@ -2,7 +2,17 @@ export default [
   {
     name: 'home',
     path: '/',
-    component: () => import('../pages/Home/Home.vue'),
+    redirect: 'movies'
+  },
+  {
+    name: 'movies',
+    path: '/movies',
+    component: () => import('../pages/Movies/Movies.vue'),
+  },
+  {
+    name: 'movie-details',
+    path: '/movie/:id',
+    component: () => import('../pages/Movies/Details.vue'),
   },
   {
     name: 'contact-us',

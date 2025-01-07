@@ -8,6 +8,7 @@ export default {
       required: true,
     },
   },
+  emits: ['select'],
   computed: {
     posterPath() {
       return BASE_IMAGE_URL + IMAGE_RESOLUTION + this.movie.poster_path;
@@ -31,7 +32,12 @@ export default {
     </div>
 
     <div class="card-footer text-muted">
-      <button type="button" class="btn btn-primary">
+      <button
+        :id="movie.id"
+        @click="$emit('select', movie.id)"
+        type="button"
+        class="btn btn-primary"
+      >
         View Details
       </button>
     </div>
