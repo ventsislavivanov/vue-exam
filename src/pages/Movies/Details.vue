@@ -42,6 +42,7 @@ export default {
       </li>
 
       <li class="list-group-item">Release Date: {{ movie.release_date }}</li>
+      <li class="list-group-item">Overview: {{ movie.overview }}</li>
 
       <a :href="movie.homepage" target="_blank" class="btn btn-outline-primary mt-2 mb-5">
         Visit Movie Website

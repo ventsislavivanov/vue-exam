@@ -6,7 +6,7 @@ import {
   getBestDramaMovies,
 } from '../../services/movieServices.js';
 import Jumbotron from './comp/Jumbotron.vue';
-import Movie from './comp/Movie.vue';
+import Movie from './../../components/Movie.vue';
 
 export default {
   components: {

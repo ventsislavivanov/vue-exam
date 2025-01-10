@@ -1,8 +1,8 @@
 <script>
-import { generationRequestToken } from '../services/authServices.js';
 import useVuelidate from '@vuelidate/core';
 import { required, email, minLength } from '@vuelidate/validators';
 import FormFieldset from "../components/FormFieldset.vue";
+import {useAuthStore} from "../stores/useAuthStore.js";
 
 export default {
   components: {
@@ -10,13 +10,14 @@ export default {
   },
   methods: {
     async onsubmit() {
-      const res = await generationRequestToken();
-      console.log(res)
+      await this.authsStore.login(this.formData);
+      this.$router.push({ name: 'movies' });
     }
   },
   setup() {
     return {
       v$: useVuelidate(),
+      authsStore: useAuthStore(),
     };
   },
   data() {
@@ -54,7 +55,6 @@ export default {
 
         <form @submit.prevent="onsubmit">
           <FormFieldset
-            :required="true"
             :icon="['fas', 'user']"
             :errors="v$.formData.email.$errors"
             label="Email"
@@ -74,7 +74,6 @@ export default {
           </FormFieldset>
 
           <FormFieldset
-            :required="true"
             :icon="['fas', 'lock']"
             :errors="v$.formData.password.$errors"
             label="Password"
@@ -93,18 +92,12 @@ export default {
             >
           </FormFieldset>
 
-          <button type="submit" class="btn btn-primary w-100">
+          <button :disabled="v$.formData.$invalid" type="submit" class="btn btn-primary w-100">
             Login
           </button>
         </form>
 
         <p class="text-center mt-3">
-          <router-link :to="{ name: 'forgot-password' }">
-            Forgot password?
-          </router-link>
-        </p>
-
-        <p class="text-center">
           Don't have an account?
           <router-link :to="{ name: 'sign-up' }">
             Sign up

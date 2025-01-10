@@ -1,8 +1,15 @@
 <script>
 import useVuelidate from '@vuelidate/core';
-import { alphaNum, email, helpers, maxLength, minLength, numeric, required, sameAs } from '@vuelidate/validators';
+import {alphaNum, email, helpers, maxLength, minLength, numeric, required, sameAs} from '@vuelidate/validators';
+import FormFieldset from "../components/FormFieldset.vue";
+import FormRadio from "../components/FormRadio.vue";
+import { validationRules } from "../helpers/validationRules.js";
+
+const egn = validationRules.egn;
+const separateNames = helpers.regex(/^[A-Z][a-z]+ [A-Z][a-z]+$/);
 
 export default {
+  components: { FormRadio, FormFieldset },
   setup() {
     return {
       v$: useVuelidate(),
@@ -11,215 +18,267 @@ export default {
   data() {
     return {
       formData: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        gender: '',
-        dob: '',
+        fullName: null,
+        email: null,
+        password: null,
+        confirmPassword: null,
+        gender: null,
+        pin: null,
+        dob: null,
+        phone: null,
+        address: null,
       },
+      genderOptions: ['Male', 'Female', 'Other'],
     };
   },
-  validations: {
-    formData: {
-      firstName: { required },
-      lastName: { required },
-      email: { required, email },
-      password: { required, minLength: minLength(8) },
-      confirmPassword: { required, sameAsPassword: sameAs('password') },
-      gender: { required },
-      dob: { required },
+  watch: {
+    'formData.pin': function (newVal) {
+      if (newVal.length > 6) {
+        this.formData.dob = this.extractBirthDate(this.formData.pin);
+      } else {
+        this.formData.dob = null;
+      }
     },
   },
+  methods: {
+    onSubmit() {
+
+      // dummy form only redirect
+
+      this.$router.push({ name: 'login' });
+    },
+    extractBirthDate(pin) {
+      let year = pin.substring(0, 2);
+      let month = pin.substring(2, 4);
+      let day = pin.substring(4, 6);
+
+      if (month >= 40 && month <= 52){
+        month = month - 40;
+        year = 20 + year;
+      } else if (month >= 20 && month <= 32) {
+        month = month - 20;
+        year = 18 + year;
+      } else if (month >= 1 && month <= 12) {
+        month = +month;
+        year = 19 + year;
+      }
+
+      if (month <= 9)
+        month = `0${month}`;
+
+      return `${day}/${month}/${year}`;
+    },
+  },
+  validations() {
+    return {
+      formData: {
+        fullName: {
+          required,
+          separateNames: helpers.withMessage('Field must contain two names (letters only) separated by a space. Both should start with a capital letter', separateNames),
+        },
+        email: { required, email },
+        password: {
+          required,
+          minLength: minLength(4),
+          maxLength: maxLength(10),
+          alphaNum,
+        },
+        confirmPassword: { sameAsPassword: sameAs(this.formData.password) },
+        pin: {
+          required,
+          egn
+        },
+        phone: {
+          required,
+          numeric,
+          minLength: minLength(9),
+          maxLength: maxLength(9),
+        },
+        address: { required },
+      },
+    }
+  }
 };
 </script>
 
 <template>
-  <div class="container my-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card p-4">
-          <h3 class="text-center mb-4">
-            Register User
-          </h3>
+  <div class="container">
+    <div class="container vh-100 d-flex justify-content-center align-items-center">
+      <div class="card shadow-sm p-4" style="max-width: 600px; width: 100%;">
+        <h3 class="text-center mb-4">
+          Sign up user
+        </h3>
 
-          <form action="/register" method="POST">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <input
-                    id="firstName"
-                    v-model="v$.formData.firstName.$model"
+        <form @submit.prevent="onSubmit">
+          <div class="row">
+            <div class="col-md-12">
+              <FormFieldset
+                  :icon="['fas', 'user']"
+                  :errors="v$.formData.fullName.$errors"
+                  name="fullName"
+              >
+                <input
+                    v-model="formData.fullName"
+                    @blur="v$.formData.fullName.$touch"
+                    :class="[
+                    'form-control',
+                    v$.formData.fullName.$errors.length > 0 ? 'is-invalid' : '',
+                  ]"
                     type="text"
-                    class="form-control"
-                    name="firstName"
-                    placeholder="First Name"
-                    required
-                  >
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <input
-                    id="lastName"
-                    v-model="v$.formData.lastName.$model"
-                    type="text"
-                    class="form-control"
-                    name="lastName"
-                    placeholder="Last Name"
-                    required
-                  >
-                </div>
-              </div>
+                    placeholder="Full Name"
+                >
+              </FormFieldset>
             </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <div class="mb-3">
-                  <input
-                    id="email"
-                    v-model="v$.formData.email.$model"
+            <div class="col-md-12">
+              <FormFieldset
+                  :icon="['fas', 'envelope']"
+                  :errors="v$.formData.email.$errors"
+                  name="email"
+              >
+                <input
+                    v-model="formData.email"
+                    @blur="v$.formData.email.$touch"
+                    :class="[
+                      'form-control',
+                      v$.formData.email.$errors.length > 0 ? 'is-invalid' : '',
+                    ]"
                     type="email"
-                    class="form-control"
-                    name="email"
                     placeholder="Email"
-                    required
-                  >
-                </div>
-              </div>
+                >
+              </FormFieldset>
             </div>
 
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <input
-                    id="password"
+            <div class="col-md-6">
+              <FormFieldset
+                  :icon="['fas', 'unlock']"
+                  :errors="v$.formData.password.$errors"
+                  name="password"
+              >
+                <input
                     v-model="v$.formData.password.$model"
+                    :class="[
+                    'form-control',
+                      v$.formData.password.$errors.length > 0 ? 'is-invalid' : '',
+                    ]"
                     type="password"
-                    class="form-control"
-                    name="password"
-                    placeholder="Password"
-                    required
-                  >
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <input
-                    id="confirmPassword"
-                    v-model="v$.formData.confirmPassword.$model"
-                    type="password"
-                    class="form-control"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                  >
-                </div>
-              </div>
+                    placeholder="Password..."
+                >
+              </FormFieldset>
             </div>
 
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="gender" class="form-label">Gender</label><br>
+            <div class="col-md-6">
+              <FormFieldset
+                  :icon="['fas', 'unlock-keyhole']"
+                  :errors="v$.formData.confirmPassword.$errors"
+                  name="confirmPassword"
+              >
+                <input
+                  v-model="v$.formData.confirmPassword.$model"
+                  :class="[
+                  'form-control',
+                    v$.formData.confirmPassword.$errors.length > 0 ? 'is-invalid' : '',
+                  ]"
+                  type="password"
+                  placeholder="Confirm password..."
+                >
+              </FormFieldset>
+            </div>
 
-                  <input
-                    id="male"
-                    type="radio"
-                    name="gender"
-                    value="Male"
-                    class="form-check-input"
-                  >
-                  <label for="male" class="form-check-label">Male</label><br>
+            <div class="col-md-12">
+              <FormFieldset
+                :icon="['fas', 'id-card']"
+                :errors="v$.formData.pin.$errors"
+                name="pin"
+              >
+                <input
+                  v-model="formData.pin"
+                  @blur="v$.formData.pin.$touch"
+                  :class="[
+                  'form-control',
+                    v$.formData.pin.$errors.length > 0 ? 'is-invalid' : '',
+                  ]"
+                  type="text"
+                  placeholder="Personal identification number (EGN)"
+                >
+              </FormFieldset>
+            </div>
 
-                  <input
-                    id="female"
-                    type="radio"
-                    name="gender"
-                    value="Female"
-                    class="form-check-input"
-                  >
-                  <label for="female" class="form-check-label">Female</label><br>
-
-                  <input
-                    id="other"
-                    type="radio"
-                    name="gender"
-                    value="Other"
-                    class="form-check-input"
-                  >
-                  <label for="other" class="form-check-label">Other</label>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <input
-                    id="dob"
-                    type="date"
-                    class="form-control"
-                    name="dob"
-                    placeholder="Date of Birth"
-                    required
-                  >
-                </div>
-
-                <div class="mb-3">
-                  <input
-                    id="phone"
-                    type="tel"
-                    class="form-control"
-                    name="phone"
-                    placeholder="Phone"
-                  >
-                </div>
-
-                <div class="mb-3">
-                  <input
-                    id="address"
+            <div class="col-md-12">
+              <FormFieldset
+                  :icon="['fas', 'phone-volume']"
+                  :errors="v$.formData.phone.$errors"
+                  name="phone"
+              >
+                <select class="form-select" style="max-width: 120px;">
+                  <option value="+359">+359</option>
+                  <option value="+971">+971</option>
+                  <option value="+972">+972</option>
+                  <option value="+198">+198</option>
+                  <option value="+701">+701</option>
+                </select>
+                <input
+                    v-model.number="formData.phone"
+                    @blur="v$.formData.phone.$touch"
+                    :class="[
+                    'form-control',
+                      v$.formData.phone.$errors.length > 0 ? 'is-invalid' : '',
+                    ]"
                     type="text"
-                    class="form-control"
+                    placeholder="Phone number"
+                >
+              </FormFieldset>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <FormFieldset
+                    :icon="['fas', 'location-pin']"
                     name="address"
-                    placeholder="Address"
                   >
+                    <input
+                      v-model="v$.formData.address.$model"
+                      class="form-control"
+                      type="text"
+                      placeholder="Address"
+                    >
+                  </FormFieldset>
+                </div>
+
+                <div class="col-md-12">
+                  <FormFieldset
+                    :disabled="true"
+                    :icon="['fas', 'calendar']"
+                    name="dob"
+                  >
+                    <input
+                      v-model="formData.dob"
+                      class="form-control"
+                      type="text"
+                      placeholder="Date of Birth"
+                    >
+                  </FormFieldset>
                 </div>
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="captcha" class="form-label">Captcha</label>
-              <!-- Вгради CAPTCHA тук -->
+            <div class="col-md-4">
+              <FormRadio
+                :name="'Gender'"
+                :options="genderOptions"
+              />
             </div>
+          </div>
 
-            <button type="submit" class="btn btn-primary w-100">
-              Register
-            </button>
-          </form>
-        </div>
+          <button :disabled="v$.formData.$invalid" type="submit" class="btn btn-primary w-100">
+            Register
+          </button>
+        </form>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-.card {
-  background-color: #495057;
-  color: white;
-}
-.btn-primary {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-.btn-primary:hover {
-  background-color: #0a58ca;
-  border-color: #0a53be;
-}
-a {
-  color: #0d6efd;
-}
-a:hover {
-  color: #0a58ca;
-}
-</style>

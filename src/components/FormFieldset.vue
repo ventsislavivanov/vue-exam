@@ -1,24 +1,20 @@
 <script>
 export default {
   props: {
-    label: {
-      type: String,
-      required: true,
-    },
+    label: String,
     name: {
       type: String,
       required: true,
     },
     errors: {
       type: Array,
-      required: true,
+      default: () => []
     },
     icon: {
       type: Array,
       default: () => []
     },
     inputGroupPrependName: String,
-    required: Boolean,
     disabled: Boolean,
   },
 }
@@ -30,6 +26,7 @@ export default {
     class="form-group mb-3"
   >
     <label
+      v-if="label"
       :for="name"
       class="control-label"
     >

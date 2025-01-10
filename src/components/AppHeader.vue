@@ -1,5 +1,14 @@
 <script>
+import useVuelidate from "@vuelidate/core";
+import {useAuthStore} from "../stores/useAuthStore.js";
+
 export default {
+  setup() {
+    return {
+      v$: useVuelidate(),
+      authsStore: useAuthStore(),
+    };
+  },
   data() {
     return {
       links: [
@@ -9,9 +18,17 @@ export default {
       ],
     };
   },
+  computed: {
+    loginStatus() {
+      return this.authsStore.success;
+    }
+  },
   methods: {
     isActiveLink(name) {
       return name === this.$route.name ? 'active' : '';
+    },
+    logout() {
+      this.authsStore.logout();
     }
   },
 };
@@ -55,10 +72,16 @@ export default {
         </ul>
 
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <li class="nav-item" v-if="!loginStatus">
             <router-link :to="{ name: 'login' }" class="btn btn-outline-light btn-lg" role="button">
               Log In
             </router-link>
+          </li>
+
+          <li class="nav-item" v-else>
+            <button type="button" class="btn btn-outline-light btn-lg" @click="logout">
+              Log out
+            </button>
           </li>
         </ul>
       </div>

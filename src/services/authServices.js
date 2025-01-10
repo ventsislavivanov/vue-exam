@@ -1,11 +1,11 @@
 import apiKey from '../config/apiKey.js';
 import axiosTheMovieDb from '../config/axios.js';
+import axios from "axios";
 
 const API_KEY_ALT = '?' + apiKey;
 
 const CREATE_REQUEST_TOKEN = 'authentication/token/new';
-const VALIDATE_REQUEST_TOKEN = 'authentication/token/validate_with_login';
-const REFRESH_REQUEST_TOKEN = 'authentication/token/refresh';
+const CREATE_SESSION = 'authentication/session/new';
 
 export async function authenticationUser() {
     try {
@@ -21,7 +21,6 @@ export async function authenticationUser() {
 export async function generationRequestToken() {
     try {
         const response = await axiosTheMovieDb.get(CREATE_REQUEST_TOKEN + API_KEY_ALT);
-        console.log('authenticationUser',response.data)
         return response.data;
     }
     catch (e) {
@@ -30,10 +29,10 @@ export async function generationRequestToken() {
     }
 }
 
-export async function validateRequestToken() {
+export async function createSession(requestToken) {
     try {
-        const response = await axiosTheMovieDb.get(VALIDATE_REQUEST_TOKEN + API_KEY_ALT);
-        console.log('authenticationUser',response.data)
+        const response = await axios.get(CREATE_SESSION + API_KEY_ALT + `&request_token=${requestToken}`);
+        console.log('createSession', response);
         return response.data;
     }
     catch (e) {
@@ -42,13 +41,22 @@ export async function validateRequestToken() {
     }
 }
 
-export async function refreshRequestToken() {
+export async function deleteSession(sessionId) {
+    const url = `https://api.themoviedb.org/3/authentication/session?${API_KEY_ALT}`;
     try {
-        const response = await axiosTheMovieDb.get(REFRESH_REQUEST_TOKEN + API_KEY_ALT);
-        console.log('authenticationUser',response.data)
+        const response = await axios.delete(url, {
+            data: { session_id: sessionId },
+        });
+
+        if (response.data.success) {
+            console.log("Session deleted successfully.");
+        } else {
+            console.error("Failed to delete session:", response.data);
+        }
+
         return response.data;
     }
-    catch (e) {
+     catch (e) {
         console.error('Oops unexpected', e);
         return [];
     }
