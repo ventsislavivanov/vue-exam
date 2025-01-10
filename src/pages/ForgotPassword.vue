@@ -1,9 +1,3 @@
-<script>
-export default {
-
-}
-</script>
-
 <template>
   <div class="container vh-100 d-flex justify-content-center align-items-center">
     <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">

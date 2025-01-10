@@ -1,48 +1,39 @@
-<script>
+<script setup>
 import useVuelidate from '@vuelidate/core';
-import { required, email, minLength } from '@vuelidate/validators';
 import FormFieldset from "../components/FormFieldset.vue";
+import { required, email, minLength } from '@vuelidate/validators';
 import {useAuthStore} from "../stores/useAuthStore.js";
+import {useRouter} from "vue-router";
+import {ref} from "vue";
 
-export default {
-  components: {
-    FormFieldset
+const router = useRouter();
+const authStore = useAuthStore();
+
+const formData = ref({
+  email: '',
+  password: '',
+});
+
+const rules = {
+  formData: {
+    email: {
+      required,
+      email,
+    },
+    password: {
+      required,
+      minLength: minLength(3),
+    },
   },
-  methods: {
-    async onsubmit() {
-      await this.authsStore.login(this.formData);
-      this.$router.push({ name: 'movies' });
-    }
-  },
-  setup() {
-    return {
-      v$: useVuelidate(),
-      authsStore: useAuthStore(),
-    };
-  },
-  data() {
-    return {
-      formData: {
-        email: '',
-        password: '',
-      },
-    };
-  },
-  validations() {
-    return {
-      formData: {
-        email: {
-          required,
-          email
-        },
-        password: {
-          required,
-          minLength: minLength(3)
-        },
-      },
-    };
-  },
+};
+
+const v$ = useVuelidate(rules, { formData });
+
+async function onsubmit() {
+  await authStore.login(this.formData);
+  router.push({name: 'movies'});
 }
+
 </script>
 
 <template>
@@ -65,7 +56,7 @@ export default {
               @blur="v$.formData.email.$touch"
               :class="[
                 'form-control',
-                v$.formData.password.$errors.length > 0 ? 'is-invalid' : '',
+                v$.formData.email.$errors.length > 0 ? 'is-invalid' : '',
                 !v$.formData.email.$errors.length && !v$.formData.email.$invalid > 0 ? 'is-valid' : ''
               ]"
               type="email"

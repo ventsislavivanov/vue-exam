@@ -1,31 +1,28 @@
-<script>
+<script setup>
 import {getMovieDetails} from "../../services/movieServices.js";
+import {computed, onMounted, ref} from "vue";
+import {useRoute} from "vue-router";
 
 const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/';
 const IMAGE_RESOLUTION = 'w500';
 
-export default {
-  data() {
-    return {
-      movie: {},
-    };
-  },
-  computed: {
-    posterPath() {
-      return BASE_IMAGE_URL + IMAGE_RESOLUTION + this.movie.poster_path;
-    },
-    movieGenres() {
-      if (Object.keys(this.movie).length !== 0)
-        return this.movie.genres.map(genre => genre.name).join(', ');
+const route = useRoute();
+const movie = ref({});
 
-      return null;
-    }
-  },
-  async created() {
-    this.movie = await getMovieDetails(this.$route.params.id);
-  },
-}
+const posterPath = computed(() => BASE_IMAGE_URL + IMAGE_RESOLUTION + movie.value.poster_path);
+const movieGenres = computed(() => {
+  if (Object.keys(movie.value).length !== 0)
+    return movie.value.genres.map(genre => genre.name).join(', ');
+
+  return null;
+});
+
+onMounted(async () => {
+  movie.value = await getMovieDetails(route.params.id);
+})
+
 </script>
+
 
 <template>
   <div class="container w-50">

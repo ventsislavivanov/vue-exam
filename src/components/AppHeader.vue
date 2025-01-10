@@ -1,37 +1,26 @@
-<script>
-import useVuelidate from "@vuelidate/core";
+<script setup>
 import {useAuthStore} from "../stores/useAuthStore.js";
+import {useRoute} from "vue-router";
+import {computed} from "vue";
 
-export default {
-  setup() {
-    return {
-      v$: useVuelidate(),
-      authsStore: useAuthStore(),
-    };
-  },
-  data() {
-    return {
-      links: [
-        { name: 'movies', label: 'Movie' },
-        { name: 'about-us', label: 'About Us' },
-        { name: 'contact-us', label: 'Contact Us' },
-      ],
-    };
-  },
-  computed: {
-    loginStatus() {
-      return this.authsStore.success;
-    }
-  },
-  methods: {
-    isActiveLink(name) {
-      return name === this.$route.name ? 'active' : '';
-    },
-    logout() {
-      this.authsStore.logout();
-    }
-  },
-};
+const authsStore = useAuthStore();
+const route = useRoute();
+
+const links = [
+  { name: 'movies', label: 'Movie' },
+  { name: 'about-us', label: 'About Us' },
+  { name: 'contact-us', label: 'Contact Us' },
+]
+
+const loginStatus = computed(() => authsStore.success)
+
+function isActiveLink(name) {
+  return name === route.name ? 'active' : '';
+}
+
+function logout() {
+  authsStore.logout();
+}
 </script>
 
 <template>
