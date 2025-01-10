@@ -1,39 +1,34 @@
-<script>
+<script setup>
 import useVuelidate from '@vuelidate/core';
 import { required, minLength } from '@vuelidate/validators';
+import { ref } from 'vue';
+import { useRouter } from "vue-router";
 
-export default {
-  props: {
-    title: String,
-    description: String,
-    callToAction: String,
+const router = useRouter();
+
+const props = defineProps({
+  title: String,
+  description: String,
+  callToAction: String,
+})
+
+const searchQuery = ref('');
+
+const rules = {
+  searchQuery: {
+    required,
+    minLength: minLength(3),
   },
-  setup() {
-    return {
-      v$: useVuelidate(),
-    };
-  },
-  data() {
-    return {
-      searchForm: {
-        query: '',
-      },
-    };
-  },
-  methods: {
-    async onSearch() {
-      this.$router.push({ name: 'search-movie', params: { query: this.searchForm.query } });
-    },
-  },
-  validations: {
-    searchForm: {
-      query: {
-        required,
-        minLength: minLength(3),
-      },
-    },
-  }
 };
+
+const v$ = useVuelidate(rules, { searchQuery });
+
+function onSearch() {
+  router.push({
+    name: 'search-movie',
+    params: { query: searchQuery.value }
+  });
+}
 </script>
 
 <template>
@@ -57,13 +52,13 @@ export default {
 
         <form @submit.prevent="onSearch" class="form d-flex">
           <input
-            v-model="searchForm.query"
+            v-model="searchQuery"
             class="form-control me-sm-2"
             type="search"
             placeholder="Search"
           >
           <button
-            :disabled="v$.searchForm.$invalid"
+            :disabled="v$.searchQuery.$invalid"
             class="btn btn-light my-2 my-sm-0"
             type="submit"
           >
