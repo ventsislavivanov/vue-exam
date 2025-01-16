@@ -43,13 +43,15 @@ export default {
 <template>
   <div class="pb-2">
     <div class="card mb-3 h-100 d-flex flex-column">
-      <img
-          :src="posterPath"
-          :alt="movie.title"
-          class="card-img-top user-select-none"
-          width="100%"
-          height="200"
-      />
+      <div class="image-container">
+        <img
+            :src="posterPath"
+            :alt="movie.title"
+            class="card-img-top user-select-none"
+            width="100%"
+            height="200"
+        />
+      </div>
 
       <div class="card-body d-flex flex-column flex-grow-1">
         <h6 class="card-title text-center">
@@ -88,5 +90,20 @@ export default {
 </template>
 
 <style scoped>
+.image-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
+}
 
+.card-img-top {
+  transition: transform 0.6s ease-in-out, box-shadow 0.6s ease-in-out;
+  transform-origin: center;
+}
+
+.image-container:hover .card-img-top {
+  transform: rotateY(180deg);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
 </style>

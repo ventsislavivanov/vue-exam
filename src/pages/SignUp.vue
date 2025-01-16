@@ -59,7 +59,8 @@ function onSubmit() {
   // dummy form only redirect
   router.push({ name: 'login' });
 }
-function extractBirthOfDate(pin) {
+function extractBirthOfDate() {
+  const pin = formData.value.pin.toString();
   let year = pin.substring(0, 2);
   let month = pin.substring(2, 4);
   let day = pin.substring(4, 6);
@@ -81,14 +82,16 @@ function extractBirthOfDate(pin) {
   return `${day}/${month}/${year}`;
 }
 
-watch('formData.pin.value', async(newVal) => {
-  console.log(typeof newVal);
-  if (newVal.length > 6) {
-    formData.value.dob = extractBirthOfDate(formData.value.pin);
-  } else {
-    formData.value.dob = null;
+watch(
+    () => formData.value.pin,
+    async(newVal) => {
+    if (newVal.length > 6) {
+      formData.value.dob = extractBirthOfDate();
+    } else {
+      formData.value.dob = null;
+    }
   }
-})
+);
 
 </script>
 
