@@ -24,7 +24,7 @@ export async function addFavoriteMovie(movieId) {
   }
 }
 
-export async function loadFavoritesMovie() {
+export async function loadFavoriteMovie() {
   try {
     const response = await axiosTheMovieDb.get(`${LOAD_FAVORITE + API_KEY_ALT}&session_id=${authStore.sessionId}`);
     return response.data.results;

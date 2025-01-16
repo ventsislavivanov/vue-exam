@@ -22,9 +22,9 @@ export default [
     component: () => import('../pages/SearchMovie.vue'),
   },
   {
-    name: 'favorites',
-    path: '/favorites',
-    component: () => import('../pages/Favorites.vue'),
+    name: 'favorite-movies',
+    path: '/favorite-movies',
+    component: () => import('../pages/FavoriteMovies.vue'),
     beforeEnter: () => {
       const authStore = useAuthStore();
       if (!authStore.sessionId) {

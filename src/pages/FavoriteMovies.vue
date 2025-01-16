@@ -1,19 +1,19 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import Movie from '../components/CardMovie.vue';
-import { loadFavoritesMovie } from '../services/accountServices.js';
+import { loadFavoriteMovie } from '../services/accountServices.js';
 
 const favoriteMovies = ref([]);
 
 onMounted(async () => {
-  favoriteMovies.value = await loadFavoritesMovie();
+  favoriteMovies.value = await loadFavoriteMovie();
 });
 </script>
 
 <template>
   <div class="container">
     <h2 class="pt-2">
-      Favorites
+      Favorite movies
     </h2>
 
     <div class="row">

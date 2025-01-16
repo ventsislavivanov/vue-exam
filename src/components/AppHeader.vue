@@ -8,7 +8,7 @@ const route = useRoute();
 
 const links = [
   { name: 'movies', label: 'Movie' },
-  { name: 'favorites', label: 'Favorites' },
+  { name: 'favorite-movies', label: 'Favorites' },
   { name: 'about-us', label: 'About Us' },
   { name: 'contact-us', label: 'Contact Us' },
 ];
