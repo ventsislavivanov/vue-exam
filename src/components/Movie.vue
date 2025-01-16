@@ -104,4 +104,17 @@ export default {
   transform: rotateY(180deg);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
 }
+
+.card {
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
 </style>

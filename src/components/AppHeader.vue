@@ -77,3 +77,26 @@ function logout() {
     </div>
   </nav>
 </template>
+
+<style scoped>
+.navbar {
+  animation: slideIn 0.5s ease-out;
+}
+
+.navbar a:hover {
+  animation: scaleUp 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+</style>
