@@ -21,7 +21,7 @@ async function load() {
     <button type="button" @click="load">Load</button>
 
     <div class="row">
-      <div v-for="movie in favoritesStore" :key="movie.id" class="col-lg-2 pt-2 pb-2">
+      <div v-for="movie in favoriteMovies" :key="movie.id" class="col-lg-2 pt-2 pb-2">
         <Movie :movie="movie" />
       </div>
     </div>
