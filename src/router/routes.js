@@ -13,7 +13,7 @@ export default [
   },
   {
     name: 'movie-details',
-    path: '/movie/:id',
+    path: '/movie-details/:id',
     component: () => import('../pages/Movies/Details.vue'),
   },
   {
