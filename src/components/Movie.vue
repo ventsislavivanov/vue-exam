@@ -1,7 +1,6 @@
 <script>
-import {createRouter as $router} from "vue-router/dist/vue-router.esm-browser.js";
+import { useAuthStore } from '../stores/useAuthStore.js';
 import { useFavoritesStore } from '../stores/useFavoritesStore.js';
-import { useAuthStore } from "../stores/useAuthStore.js";
 
 const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/';
 const IMAGE_RESOLUTION = 'w500';
@@ -16,7 +15,7 @@ export default {
     return {
       favoritesStore: useFavoritesStore(),
       authsStore: useAuthStore(),
-    }
+    };
   },
   computed: {
     posterPath() {
@@ -27,7 +26,7 @@ export default {
     },
     loginStatus() {
       return this.authsStore.success;
-    }
+    },
   },
   methods: {
     viewDetails() {
@@ -35,8 +34,8 @@ export default {
     },
     addFavorite() {
       this.favoritesStore.addFavorite(this.movie.id);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -44,12 +43,12 @@ export default {
   <div class="card mb-3 h-100 d-flex flex-column">
     <div class="image-container">
       <img
-          :src="posterPath"
-          :alt="movie.title"
-          class="card-img-top user-select-none"
-          width="100%"
-          height="200"
-      />
+        :src="posterPath"
+        :alt="movie.title"
+        class="card-img-top user-select-none"
+        width="100%"
+        height="200"
+      >
     </div>
 
     <div class="card-body d-flex flex-column flex-grow-1">
@@ -57,29 +56,26 @@ export default {
         {{ movie.title }}
       </h6>
 
-      <!-- Release Date -->
       <p class="card-text text-center text-muted mb-4">
         {{ movie.release_date }}
       </p>
     </div>
 
-    <!-- Card Footer with Actions -->
     <div class="card-footer text-muted d-flex justify-content-around">
-      <!-- View Details Button -->
       <button
-          @click="viewDetails"
-          type="button"
-          class="btn btn-info"
+        type="button"
+        class="btn btn-info"
+        @click="viewDetails"
       >
         <font-awesome-icon :icon="['fas', 'eye']" />
       </button>
 
-      <!-- Favorite Button -->
       <button
-          v-if="loginStatus"
-          @click="addFavorite"
-          type="button"
-          :class="['btn', !isFavorite ? 'btn-outline-primary' : 'btn-primary']"
+        v-if="loginStatus"
+        type="button"
+        class="btn"
+        :class="[!isFavorite ? 'btn-outline-primary' : 'btn-primary']"
+        @click="addFavorite"
       >
         <font-awesome-icon :icon="['fas', 'heart']" />
       </button>

@@ -1,14 +1,13 @@
 import apiKey from '../config/apiKey.js';
 import axiosTheMovieDb from '../config/axios.js';
 
-const API_KEY = '&' + apiKey;
-const API_KEY_ALT = '?' + apiKey;
+const API_KEY = `&${apiKey}`;
+const API_KEY_ALT = `?${apiKey}`;
 
 const POPULAR = 'discover/movie?sort_by=popularity.desc';
 const IN_THEATER = 'discover/movie?primary_release_date.gte=2019-01-01&primary_release_date.lte=2019-01-31';
 const KIDS = 'discover/movie?certification_country=US&certification.lte=G&sort_by=popularity.desc';
 const BEST_DRAMA = 'discover/movie?with_genres=18&primary_release_year=2019';
-
 
 export async function getPopularMovies() {
   try {
@@ -56,7 +55,7 @@ export async function getBestDramaMovies() {
 
 export async function getMovieDetails(id) {
   try {
-    const response = await axiosTheMovieDb.get('movie/' + id + API_KEY_ALT);
+    const response = await axiosTheMovieDb.get(`movie/${id}${API_KEY_ALT}`);
     return response.data;
   }
   catch (e) {
@@ -67,7 +66,7 @@ export async function getMovieDetails(id) {
 
 export async function getSearchMovie(query) {
   try {
-    const response = await axiosTheMovieDb.get('search/movie' + API_KEY_ALT + `&query=${query}`);
+    const response = await axiosTheMovieDb.get(`search/movie${API_KEY_ALT}&query=${query}`);
     return response.data.results;
   }
   catch (e) {
@@ -75,4 +74,3 @@ export async function getSearchMovie(query) {
     return [];
   }
 }
-

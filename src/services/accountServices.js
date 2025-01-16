@@ -1,22 +1,20 @@
-import axiosTheMovieDb from "../config/axios.js";
-import apiKey from "../config/apiKey.js";
-import {useAuthStore} from "../stores/useAuthStore.js";
+import apiKey from '../config/apiKey.js';
+import axiosTheMovieDb from '../config/axios.js';
+import { useAuthStore } from '../stores/useAuthStore.js';
 
-const API_KEY_ALT = '?' + apiKey;
+const API_KEY_ALT = `?${apiKey}`;
 const accountId = 21732660;
 
 const authStore = useAuthStore();
-
 
 const ADD_FAVORITE = `account/${accountId}/favorite`;
 const LOAD_FAVORITE = `account/${accountId}/favorite/movies`;
 export async function addFavoriteMovie(movieId) {
   try {
-
-    const response = await axiosTheMovieDb.post(ADD_FAVORITE + API_KEY_ALT + '&session_id=' + authStore.sessionId, {
-      'media_type': 'movie',
-      'media_id': movieId,
-      'favorite': true
+    const response = await axiosTheMovieDb.post(`${ADD_FAVORITE + API_KEY_ALT}&session_id=${authStore.sessionId}`, {
+      media_type: 'movie',
+      media_id: movieId,
+      favorite: true,
     });
     return response.data.results;
   }
@@ -26,10 +24,9 @@ export async function addFavoriteMovie(movieId) {
   }
 }
 
-export async function loadFavoritesMovie(movieId) {
+export async function loadFavoritesMovie() {
   try {
-    const response = await axiosTheMovieDb.get(LOAD_FAVORITE + API_KEY_ALT + '&session_id=' + authStore.sessionId);
-    console.log('res', response.data.results)
+    const response = await axiosTheMovieDb.get(`${LOAD_FAVORITE + API_KEY_ALT}&session_id=${authStore.sessionId}`);
     return response.data.results;
   }
   catch (e) {

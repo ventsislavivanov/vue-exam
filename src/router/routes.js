@@ -1,8 +1,10 @@
+import { useAuthStore } from '../stores/useAuthStore.js';
+
 export default [
   {
     name: 'home',
     path: '/',
-    redirect: 'movies'
+    redirect: 'movies',
   },
   {
     name: 'movies',
@@ -23,6 +25,12 @@ export default [
     name: 'favorites',
     path: '/favorites',
     component: () => import('../pages/Favorites.vue'),
+    beforeEnter: () => {
+      const authStore = useAuthStore();
+      if (!authStore.sessionId) {
+        return { name: 'login' };
+      }
+    },
   },
   {
     name: 'about-us',
@@ -43,10 +51,5 @@ export default [
     name: 'sign-up',
     path: '/sign-up',
     component: () => import('../pages/SignUp.vue'),
-  },
-  {
-    name: 'forgot-password',
-    path: '/forgot-password',
-    component: () => import('../pages/ForgotPassword.vue'),
   },
 ];

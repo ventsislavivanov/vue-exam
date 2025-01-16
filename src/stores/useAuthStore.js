@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import {createSession, generationRequestToken, deleteSession} from "../services/authServices.js";
+import { createSession, deleteSession, generationRequestToken } from '../services/authServices.js';
 
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
@@ -28,6 +28,6 @@ export const useAuthStore = defineStore('authStore', {
       localStorage.removeItem('tmdb_session_id');
       this.sessionId = null;
       this.success = false;
-    }
-  }
+    },
+  },
 });

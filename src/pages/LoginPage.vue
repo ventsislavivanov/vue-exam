@@ -1,17 +1,17 @@
 <script setup>
 import useVuelidate from '@vuelidate/core';
-import FormFieldset from "../components/FormFieldset.vue";
-import { required, email, minLength } from '@vuelidate/validators';
-import {useAuthStore} from "../stores/useAuthStore.js";
-import {useRouter} from "vue-router";
-import {ref} from "vue";
+import { email, minLength, required } from '@vuelidate/validators';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import FormFieldset from '../components/FormFieldset.vue';
+import { useAuthStore } from '../stores/useAuthStore.js';
 
 const router = useRouter();
 const authStore = useAuthStore();
 
 const formData = ref({
-  email: 'aa@example.com',
-  password: '123',
+  email: '',
+  password: '',
 });
 
 const rules = {
@@ -31,9 +31,8 @@ const v$ = useVuelidate(rules, { formData });
 
 async function onsubmit() {
   await authStore.login(formData.value);
-  await router.push({name: 'movies'});
+  await router.push({ name: 'movies' });
 }
-
 </script>
 
 <template>
@@ -53,14 +52,14 @@ async function onsubmit() {
           >
             <input
               v-model="formData.email"
-              @blur="v$.formData.email.$touch"
+              class="form-control"
               :class="[
-                'form-control',
                 v$.formData.email.$errors.length > 0 ? 'is-invalid' : '',
-                !v$.formData.email.$errors.length && !v$.formData.email.$invalid > 0 ? 'is-valid' : ''
+                !v$.formData.email.$errors.length && !v$.formData.email.$invalid > 0 ? 'is-valid' : '',
               ]"
               type="email"
               placeholder="Place enter email..."
+              @blur="v$.formData.email.$touch"
             >
           </FormFieldset>
 
@@ -72,14 +71,14 @@ async function onsubmit() {
           >
             <input
               v-model="formData.password"
-              @blur="v$.formData.password.$touch"
+              class="form-control"
               :class="[
-                'form-control',
                 v$.formData.password.$errors.length > 0 ? 'is-invalid' : '',
-                !v$.formData.password.$errors.length > 0 && !v$.formData.password.$invalid ? 'is-valid' : ''
+                !v$.formData.password.$errors.length > 0 && !v$.formData.password.$invalid ? 'is-valid' : '',
               ]"
               type="password"
               placeholder="Place enter password..."
+              @blur="v$.formData.password.$touch"
             >
           </FormFieldset>
 
@@ -98,5 +97,3 @@ async function onsubmit() {
     </div>
   </div>
 </template>
-
-
