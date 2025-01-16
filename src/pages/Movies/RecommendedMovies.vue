@@ -1,17 +1,17 @@
 <script>
+import CardMovie from '../../components/CardMovie.vue';
 import {
-  getPopularMovies,
-  getKidsMovies,
-  getInTheaterMovies,
   getBestDramaMovies,
+  getInTheaterMovies,
+  getKidsMovies,
+  getPopularMovies,
 } from '../../services/movieServices.js';
 import Jumbotron from './comp/SearchJumbotron.vue';
-import Movie from '../../components/CardMovie.vue';
 
 export default {
   components: {
     Jumbotron,
-    Movie,
+    CardMovie,
   },
   data() {
     return {
@@ -49,7 +49,7 @@ export default {
 
     <div class="row">
       <div v-for="movie in popularMovies" :key="movie.id" class="col-lg-2 pb-2">
-        <Movie :movie="movie" @select="onSelect"/>
+        <CardMovie :movie="movie" @select="onSelect" />
       </div>
     </div>
 
@@ -59,7 +59,7 @@ export default {
 
     <div class="row">
       <div v-for="movie in inTheaterMovies" :key="movie.id" class="col-lg-2 pb-2">
-        <Movie :movie="movie" @select="onSelect"/>
+        <CardMovie :movie="movie" @select="onSelect" />
       </div>
     </div>
 
@@ -69,7 +69,7 @@ export default {
 
     <div class="row">
       <div v-for="movie in kidsMovies" :key="movie.id" class="col-lg-2 pb-2">
-        <Movie :movie="movie" @select="onSelect"/>
+        <CardMovie :movie="movie" @select="onSelect" />
       </div>
     </div>
 
@@ -79,7 +79,7 @@ export default {
 
     <div class="row">
       <div v-for="movie in bestDramaMovies" :key="movie.id" class="col-lg-2 pb-2">
-        <Movie :movie="movie" @select="onSelect"/>
+        <CardMovie :movie="movie" @select="onSelect" />
       </div>
     </div>
   </div>

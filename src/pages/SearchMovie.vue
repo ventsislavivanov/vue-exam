@@ -1,15 +1,15 @@
 <script>
+import CardMovie from '../components/CardMovie.vue';
 import { getSearchMovie } from '../services/movieServices.js';
-import Movie from "../components/CardMovie.vue";
 
 export default {
   components: {
-    Movie
+    CardMovie,
   },
   data() {
     return {
-      searchResults: []
-    }
+      searchResults: [],
+    };
   },
   computed: {
     query() {
@@ -19,7 +19,7 @@ export default {
   async created() {
     this.searchResults = await getSearchMovie(this.query);
   },
-}
+};
 </script>
 
 <template>
@@ -30,12 +30,8 @@ export default {
 
     <div class="row">
       <div v-for="movie in searchResults" :key="movie.id" class="col-lg-2 pt-2 pb-2">
-        <Movie :movie="movie" />
+        <CardMovie :movie="movie" />
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>
