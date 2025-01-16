@@ -9,12 +9,12 @@ export default [
   {
     name: 'movies',
     path: '/movies',
-    component: () => import('../pages/Movies/Movies.vue'),
+    component: () => import('../pages/Movies/RecommendedMovies.vue'),
   },
   {
     name: 'movie-details',
     path: '/movie-details/:id',
-    component: () => import('../pages/Movies/Details.vue'),
+    component: () => import('../pages/Movies/MovieDetails.vue'),
   },
   {
     name: 'search-movie',
