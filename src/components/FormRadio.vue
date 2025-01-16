@@ -4,15 +4,15 @@ export default {
     name: String,
     options: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
   },
   methods: {
     capitalizeFirstLetter(string) {
       return String(string).charAt(0).toUpperCase() + String(string).slice(1);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <template>

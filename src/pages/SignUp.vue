@@ -1,11 +1,11 @@
 <script setup>
 import useVuelidate from '@vuelidate/core';
-import {alphaNum, email, helpers, maxLength, minLength, numeric, required, sameAs} from '@vuelidate/validators';
-import FormFieldset from "../components/FormFieldset.vue";
-import FormRadio from "../components/FormRadio.vue";
-import { validationRules } from "../helpers/validationRules.js";
-import {ref, watch} from "vue";
-import {useRouter} from "vue-router";
+import { alphaNum, email, helpers, maxLength, minLength, numeric, required, sameAs } from '@vuelidate/validators';
+import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import FormFieldset from '../components/FormFieldset.vue';
+import FormRadio from '../components/FormRadio.vue';
+import { validationRules } from '../helpers/validationRules.js';
 
 const egnRule = validationRules.egn;
 const separateNames = helpers.regex(/^[A-Z][a-z]+ [A-Z][a-z]+$/);
@@ -41,7 +41,7 @@ const rules = {
     confirmPassword: { sameAsPassword: sameAs(formData.value.password) },
     pin: {
       required,
-      egnRule
+      egnRule,
     },
     phone: {
       required,
@@ -63,15 +63,17 @@ function extractBirthOfDate() {
   const pin = formData.value.pin.toString();
   let year = pin.substring(0, 2);
   let month = pin.substring(2, 4);
-  let day = pin.substring(4, 6);
+  const day = pin.substring(4, 6);
 
-  if (month >= 40 && month <= 52){
+  if (month >= 40 && month <= 52) {
     month = month - 40;
     year = 20 + year;
-  } else if (month >= 20 && month <= 32) {
+  }
+  else if (month >= 20 && month <= 32) {
     month = month - 20;
     year = 18 + year;
-  } else if (month >= 1 && month <= 12) {
+  }
+  else if (month >= 1 && month <= 12) {
     month = +month;
     year = 19 + year;
   }
@@ -87,12 +89,12 @@ watch(
   (newVal) => {
     if (newVal.length > 6) {
       formData.value.dob = extractBirthOfDate();
-    } else {
+    }
+    else {
       formData.value.dob = null;
     }
-  }
+  },
 );
-
 </script>
 
 <template>
@@ -113,13 +115,11 @@ watch(
               >
                 <input
                   v-model="formData.fullName"
-                  @blur="v$.formData.fullName.$touch"
-                  :class="[
-                    'form-control',
-                    v$.formData.fullName.$errors.length > 0 ? 'is-invalid' : '',
-                  ]"
+                  class="form-control"
+                  :class="[v$.formData.fullName.$errors.length > 0 ? 'is-invalid' : '']"
                   type="text"
                   placeholder="Full Name"
+                  @blur="v$.formData.fullName.$touch"
                 >
               </FormFieldset>
             </div>
@@ -132,13 +132,11 @@ watch(
               >
                 <input
                   v-model="formData.email"
-                  @blur="v$.formData.email.$touch"
-                  :class="[
-                    'form-control',
-                    v$.formData.email.$errors.length > 0 ? 'is-invalid' : '',
-                  ]"
+                  class="form-control"
+                  :class="[v$.formData.email.$errors.length > 0 ? 'is-invalid' : '']"
                   type="email"
                   placeholder="Email"
+                  @blur="v$.formData.email.$touch"
                 >
               </FormFieldset>
             </div>
@@ -151,10 +149,8 @@ watch(
               >
                 <input
                   v-model="v$.formData.password.$model"
-                  :class="[
-                    'form-control',
-                    v$.formData.password.$errors.length > 0 ? 'is-invalid' : '',
-                  ]"
+                  class="form-control"
+                  :class="[v$.formData.password.$errors.length > 0 ? 'is-invalid' : '']"
                   type="password"
                   placeholder="Password..."
                 >
@@ -169,10 +165,8 @@ watch(
               >
                 <input
                   v-model="v$.formData.confirmPassword.$model"
-                  :class="[
-                    'form-control',
-                    v$.formData.confirmPassword.$errors.length > 0 ? 'is-invalid' : '',
-                  ]"
+                  class="form-control"
+                  :class="[v$.formData.confirmPassword.$errors.length > 0 ? 'is-invalid' : '']"
                   type="password"
                   placeholder="Confirm password..."
                 >
@@ -187,13 +181,11 @@ watch(
               >
                 <input
                   v-model="formData.pin"
-                  @blur="v$.formData.pin.$touch"
-                  :class="[
-                  'form-control',
-                    v$.formData.pin.$errors.length > 0 ? 'is-invalid' : '',
-                  ]"
+                  class="form-control"
+                  :class="[v$.formData.pin.$errors.length > 0 ? 'is-invalid' : '']"
                   type="text"
                   placeholder="Personal identification number (EGN)"
+                  @blur="v$.formData.pin.$touch"
                 >
               </FormFieldset>
             </div>
@@ -205,21 +197,29 @@ watch(
                 name="phone"
               >
                 <select class="form-select" style="max-width: 120px;">
-                  <option value="+359">+359</option>
-                  <option value="+971">+971</option>
-                  <option value="+972">+972</option>
-                  <option value="+198">+198</option>
-                  <option value="+701">+701</option>
+                  <option value="+359">
+                    +359
+                  </option>
+                  <option value="+971">
+                    +971
+                  </option>
+                  <option value="+972">
+                    +972
+                  </option>
+                  <option value="+198">
+                    +198
+                  </option>
+                  <option value="+701">
+                    +701
+                  </option>
                 </select>
                 <input
                   v-model.number="formData.phone"
-                  @blur="v$.formData.phone.$touch"
-                  :class="[
-                    'form-control',
-                    v$.formData.phone.$errors.length > 0 ? 'is-invalid' : '',
-                  ]"
+                  class="form-control"
+                  :class="[v$.formData.phone.$errors.length > 0 ? 'is-invalid' : '']"
                   type="text"
                   placeholder="Phone number"
+                  @blur="v$.formData.phone.$touch"
                 >
               </FormFieldset>
             </div>
@@ -261,7 +261,7 @@ watch(
 
             <div class="col-md-4">
               <FormRadio
-                :name="'Gender'"
+                name="Gender"
                 :options="genderOptions"
               />
             </div>
@@ -275,4 +275,3 @@ watch(
     </div>
   </div>
 </template>
-

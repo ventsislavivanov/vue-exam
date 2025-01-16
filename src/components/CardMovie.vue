@@ -28,6 +28,13 @@ export default {
       return this.authsStore.success;
     },
   },
+  watch: {
+    'authsStore.success': function (newValue) {
+      if (!newValue) {
+        this.$router.push({ name: 'login' });
+      }
+    },
+  },
   methods: {
     viewDetails() {
       this.$router.push({ name: 'movie-details', params: { id: this.movie.id } });

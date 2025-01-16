@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import Movie from '../components/Movie.vue';
+import Movie from '../components/CardMovie.vue';
 import { loadFavoritesMovie } from '../services/accountServices.js';
 
 const favoriteMovies = ref([]);

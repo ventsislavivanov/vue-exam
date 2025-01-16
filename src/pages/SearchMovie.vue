@@ -1,6 +1,6 @@
 <script>
 import { getSearchMovie } from '../services/movieServices.js';
-import Movie from "../components/Movie.vue";
+import Movie from "../components/CardMovie.vue";
 
 export default {
   components: {

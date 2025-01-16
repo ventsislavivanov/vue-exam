@@ -1,17 +1,16 @@
 <script setup>
 import useVuelidate from '@vuelidate/core';
-import { required, minLength } from '@vuelidate/validators';
+import { minLength, required } from '@vuelidate/validators';
 import { ref } from 'vue';
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router';
 
-const router = useRouter();
-
-const props = defineProps({
+defineProps({
   title: String,
   description: String,
   callToAction: String,
-})
+});
 
+const router = useRouter();
 const searchQuery = ref('');
 
 const rules = {
@@ -26,7 +25,7 @@ const v$ = useVuelidate(rules, { searchQuery });
 function onSearch() {
   router.push({
     name: 'search-movie',
-    params: { query: searchQuery.value }
+    params: { query: searchQuery.value },
   });
 }
 </script>
@@ -50,7 +49,7 @@ function onSearch() {
           {{ callToAction }}
         </p>
 
-        <form @submit.prevent="onSearch" class="form d-flex">
+        <form class="form d-flex" @submit.prevent="onSearch">
           <input
             v-model="searchQuery"
             class="form-control me-sm-2"

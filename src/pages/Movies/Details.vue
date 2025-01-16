@@ -1,7 +1,7 @@
 <script setup>
-import {getMovieDetails} from "../../services/movieServices.js";
-import {computed, onMounted, ref} from "vue";
-import {useRoute} from "vue-router";
+import { computed, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { getMovieDetails } from '../../services/movieServices.js';
 
 const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/';
 const IMAGE_RESOLUTION = 'w500';
@@ -19,10 +19,8 @@ const movieGenres = computed(() => {
 
 onMounted(async () => {
   movie.value = await getMovieDetails(route.params.id);
-})
-
+});
 </script>
-
 
 <template>
   <div class="container w-50">
@@ -32,14 +30,19 @@ onMounted(async () => {
 
     <img :src="posterPath" :alt="movie.title" class="thumbnail" width="100%">
     <ul class="list-group">
-      <li class="list-group-item">Genres:
+      <li class="list-group-item">
+        Genres:
         <span>
           {{ movieGenres }}
         </span>
       </li>
 
-      <li class="list-group-item">Release Date: {{ movie.release_date }}</li>
-      <li class="list-group-item">Overview: {{ movie.overview }}</li>
+      <li class="list-group-item">
+        Release Date: {{ movie.release_date }}
+      </li>
+      <li class="list-group-item">
+        Overview: {{ movie.overview }}
+      </li>
 
       <a :href="movie.homepage" target="_blank" class="btn btn-outline-primary mt-2 mb-5">
         Visit Movie Website
@@ -47,7 +50,3 @@ onMounted(async () => {
     </ul>
   </div>
 </template>
-
-<style scoped>
-
-</style>
