@@ -7,7 +7,7 @@ import { validationRules } from "../helpers/validationRules.js";
 import {ref, watch} from "vue";
 import {useRouter} from "vue-router";
 
-const egn = validationRules.egn;
+const egnRule = validationRules.egn;
 const separateNames = helpers.regex(/^[A-Z][a-z]+ [A-Z][a-z]+$/);
 
 const router = useRouter();
@@ -41,7 +41,7 @@ const rules = {
     confirmPassword: { sameAsPassword: sameAs(formData.value.password) },
     pin: {
       required,
-      egn
+      egnRule
     },
     phone: {
       required,
@@ -200,9 +200,9 @@ watch(
 
             <div class="col-md-12">
               <FormFieldset
-                  :icon="['fas', 'phone-volume']"
-                  :errors="v$.formData.phone.$errors"
-                  name="phone"
+                :icon="['fas', 'phone-volume']"
+                :errors="v$.formData.phone.$errors"
+                name="phone"
               >
                 <select class="form-select" style="max-width: 120px;">
                   <option value="+359">+359</option>
