@@ -83,8 +83,8 @@ function extractBirthOfDate() {
 }
 
 watch(
-    () => formData.value.pin,
-    async(newVal) => {
+  () => formData.value.pin,
+  (newVal) => {
     if (newVal.length > 6) {
       formData.value.dob = extractBirthOfDate();
     } else {
@@ -107,70 +107,70 @@ watch(
           <div class="row">
             <div class="col-md-12">
               <FormFieldset
-                  :icon="['fas', 'user']"
-                  :errors="v$.formData.fullName.$errors"
-                  name="fullName"
+                :icon="['fas', 'user']"
+                :errors="v$.formData.fullName.$errors"
+                name="fullName"
               >
                 <input
-                    v-model="formData.fullName"
-                    @blur="v$.formData.fullName.$touch"
-                    :class="[
+                  v-model="formData.fullName"
+                  @blur="v$.formData.fullName.$touch"
+                  :class="[
                     'form-control',
                     v$.formData.fullName.$errors.length > 0 ? 'is-invalid' : '',
                   ]"
-                    type="text"
-                    placeholder="Full Name"
+                  type="text"
+                  placeholder="Full Name"
                 >
               </FormFieldset>
             </div>
 
             <div class="col-md-12">
               <FormFieldset
-                  :icon="['fas', 'envelope']"
-                  :errors="v$.formData.email.$errors"
-                  name="email"
+                :icon="['fas', 'envelope']"
+                :errors="v$.formData.email.$errors"
+                name="email"
               >
                 <input
-                    v-model="formData.email"
-                    @blur="v$.formData.email.$touch"
-                    :class="[
-                      'form-control',
-                      v$.formData.email.$errors.length > 0 ? 'is-invalid' : '',
-                    ]"
-                    type="email"
-                    placeholder="Email"
-                >
-              </FormFieldset>
-            </div>
-
-            <div class="col-md-6">
-              <FormFieldset
-                  :icon="['fas', 'unlock']"
-                  :errors="v$.formData.password.$errors"
-                  name="password"
-              >
-                <input
-                    v-model="v$.formData.password.$model"
-                    :class="[
+                  v-model="formData.email"
+                  @blur="v$.formData.email.$touch"
+                  :class="[
                     'form-control',
-                      v$.formData.password.$errors.length > 0 ? 'is-invalid' : '',
-                    ]"
-                    type="password"
-                    placeholder="Password..."
+                    v$.formData.email.$errors.length > 0 ? 'is-invalid' : '',
+                  ]"
+                  type="email"
+                  placeholder="Email"
                 >
               </FormFieldset>
             </div>
 
             <div class="col-md-6">
               <FormFieldset
-                  :icon="['fas', 'unlock-keyhole']"
-                  :errors="v$.formData.confirmPassword.$errors"
-                  name="confirmPassword"
+                :icon="['fas', 'unlock']"
+                :errors="v$.formData.password.$errors"
+                name="password"
+              >
+                <input
+                  v-model="v$.formData.password.$model"
+                  :class="[
+                    'form-control',
+                    v$.formData.password.$errors.length > 0 ? 'is-invalid' : '',
+                  ]"
+                  type="password"
+                  placeholder="Password..."
+                >
+              </FormFieldset>
+            </div>
+
+            <div class="col-md-6">
+              <FormFieldset
+                :icon="['fas', 'unlock-keyhole']"
+                :errors="v$.formData.confirmPassword.$errors"
+                name="confirmPassword"
               >
                 <input
                   v-model="v$.formData.confirmPassword.$model"
                   :class="[
-                  'form-control',
+                    'form-control',
                     v$.formData.confirmPassword.$errors.length > 0 ? 'is-invalid' : '',
                   ]"
                   type="password"
@@ -212,14 +212,14 @@ watch(
                   <option value="+701">+701</option>
                 </select>
                 <input
-                    v-model.number="formData.phone"
-                    @blur="v$.formData.phone.$touch"
-                    :class="[
+                  v-model.number="formData.phone"
+                  @blur="v$.formData.phone.$touch"
+                  :class="[
                     'form-control',
-                      v$.formData.phone.$errors.length > 0 ? 'is-invalid' : '',
-                    ]"
-                    type="text"
-                    placeholder="Phone number"
+                    v$.formData.phone.$errors.length > 0 ? 'is-invalid' : '',
+                  ]"
+                  type="text"
+                  placeholder="Phone number"
                 >
               </FormFieldset>
             </div>
