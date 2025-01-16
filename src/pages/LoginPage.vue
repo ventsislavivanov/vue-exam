@@ -10,8 +10,8 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 const formData = ref({
-  email: '',
-  password: '',
+  email: 'aa@example.com',
+  password: '123',
 });
 
 const rules = {
@@ -30,8 +30,8 @@ const rules = {
 const v$ = useVuelidate(rules, { formData });
 
 async function onsubmit() {
-  await authStore.login(this.formData);
-  router.push({name: 'movies'});
+  await authStore.login(formData.value);
+  await router.push({name: 'movies'});
 }
 
 </script>

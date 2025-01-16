@@ -20,28 +20,33 @@ export default [
     component: () => import('../pages/SearchMovie.vue'),
   },
   {
+    name: 'favorites',
+    path: '/favorites',
+    component: () => import('../pages/Favorites.vue'),
+  },
+  {
     name: 'about-us',
     path: '/about-us',
-    component: () => import('./../pages/AboutUs.vue'),
+    component: () => import('../pages/AboutUs.vue'),
   },
   {
     name: 'contact-us',
     path: '/contact-us',
-    component: () => import('./../pages/ContactUs.vue'),
+    component: () => import('../pages/ContactUs.vue'),
   },
   {
     name: 'login',
     path: '/login',
-    component: () => import('./../pages/LoginPage.vue'),
+    component: () => import('../pages/LoginPage.vue'),
   },
   {
     name: 'sign-up',
     path: '/sign-up',
-    component: () => import('./../pages/SignUp.vue'),
+    component: () => import('../pages/SignUp.vue'),
   },
   {
     name: 'forgot-password',
     path: '/forgot-password',
-    component: () => import('./../pages/ForgotPassword.vue'),
+    component: () => import('../pages/ForgotPassword.vue'),
   },
 ];

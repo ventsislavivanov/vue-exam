@@ -8,8 +8,6 @@ export const useAuthStore = defineStore('authStore', {
   }),
   actions: {
     async login(credentials) {
-      console.log(credentials);
-
       // 1. get token
       const response = await generationRequestToken();
 

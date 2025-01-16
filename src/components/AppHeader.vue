@@ -72,10 +72,6 @@ function logout() {
   animation: slideIn 0.5s ease-out;
 }
 
-.navbar a:hover {
-  animation: scaleUp 0.5s ease-in-out;
-}
-
 @keyframes slideIn {
   from {
     transform: translateY(-100%);
@@ -86,6 +82,4 @@ function logout() {
     opacity: 1;
   }
 }
-
-
 </style>

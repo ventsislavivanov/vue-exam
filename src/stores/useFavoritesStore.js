@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from "vue";
+import {addFavoriteMovie} from "../services/accountServices.js";
 
 export const useFavoritesStore = defineStore('favoritesStore', () =>{
   const favorites = ref([]);
@@ -8,8 +9,9 @@ export const useFavoritesStore = defineStore('favoritesStore', () =>{
     return favorites.value.includes(id);
   }
 
-  function addFavorite(id) {
+  async function addFavorite(id) {
     favorites.value.push(id);
+    await addFavoriteMovie(id)
   }
 
   function removeFavorite(id) {
@@ -30,6 +32,7 @@ export const useFavoritesStore = defineStore('favoritesStore', () =>{
   }
 
   return {
+    favorites,
     isFavorite,
     toggleFavorite,
     loadFavorites
