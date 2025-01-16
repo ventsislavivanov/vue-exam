@@ -2,8 +2,14 @@
 import {useFavoritesStore} from "../stores/useFavoritesStore.js";
 import Movie from "../components/Movie.vue";
 import {loadFavoritesMovie} from "../services/accountServices.js";
+import {ref} from "vue";
 
 const favoritesStore = useFavoritesStore();
+
+const favoriteMovies = ref([]);
+async function load() {
+  favoriteMovies.value = await loadFavoritesMovie()
+}
 </script>
 
 <template>
@@ -12,8 +18,10 @@ const favoritesStore = useFavoritesStore();
       Favorites
     </h2>
 
+    <button type="button" @click="load">Load</button>
+
     <div class="row">
-      <div v-for="movie in loadFavoritesMovie" :key="movie.id" class="col-lg-2 pt-2 pb-2">
+      <div v-for="movie in favoritesStore" :key="movie.id" class="col-lg-2 pt-2 pb-2">
         <Movie :movie="movie" />
       </div>
     </div>

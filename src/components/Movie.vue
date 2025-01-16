@@ -33,8 +33,8 @@ export default {
     viewDetails() {
       this.$router.push({ name: 'movie-details', params: { id: this.movie.id } });
     },
-    toggleFavorite() {
-      this.favoritesStore.toggleFavorite(this.movie.id);
+    addFavorite() {
+      this.favoritesStore.addFavorite(this.movie.id);
     }
   }
 };
@@ -77,7 +77,7 @@ export default {
       <!-- Favorite Button -->
       <button
           v-if="loginStatus"
-          @click="toggleFavorite"
+          @click="addFavorite"
           type="button"
           :class="['btn', !isFavorite ? 'btn-outline-primary' : 'btn-primary']"
       >

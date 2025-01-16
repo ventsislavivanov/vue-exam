@@ -28,7 +28,8 @@ export async function addFavoriteMovie(movieId) {
 
 export async function loadFavoritesMovie(movieId) {
   try {
-    const response = await axiosTheMovieDb.get(LOAD_FAVORITE + API_KEY_ALT + SESSION_ID);
+    const response = await axiosTheMovieDb.get(LOAD_FAVORITE + API_KEY_ALT + '&session_id=' + authStore.sessionId);
+    console.log('res', response.data.results)
     return response.data.results;
   }
   catch (e) {
