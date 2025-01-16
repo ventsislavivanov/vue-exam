@@ -1,6 +1,6 @@
 <script>
-import { getSearchMovie } from '../../services/movieServices.js';
-import Movie from "../../components/Movie.vue";
+import { getSearchMovie } from '../services/movieServices.js';
+import Movie from "../components/Movie.vue";
 
 export default {
   components: {
@@ -29,7 +29,7 @@ export default {
     </h2>
 
     <div class="row">
-      <div v-for="movie in searchResults" :key="movie.id" class="col-lg-2">
+      <div v-for="movie in searchResults" :key="movie.id" class="col-lg-2 pt-2 pb-2">
         <Movie :movie="movie" />
       </div>
     </div>

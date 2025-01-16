@@ -41,50 +41,48 @@ export default {
 </script>
 
 <template>
-  <div class="pb-2">
-    <div class="card mb-3 h-100 d-flex flex-column">
-      <div class="image-container">
-        <img
-            :src="posterPath"
-            :alt="movie.title"
-            class="card-img-top user-select-none"
-            width="100%"
-            height="200"
-        />
-      </div>
+  <div class="card mb-3 h-100 d-flex flex-column">
+    <div class="image-container">
+      <img
+          :src="posterPath"
+          :alt="movie.title"
+          class="card-img-top user-select-none"
+          width="100%"
+          height="200"
+      />
+    </div>
 
-      <div class="card-body d-flex flex-column flex-grow-1">
-        <h6 class="card-title text-center">
-          {{ movie.title }}
-        </h6>
+    <div class="card-body d-flex flex-column flex-grow-1">
+      <h6 class="card-title text-center">
+        {{ movie.title }}
+      </h6>
 
-        <!-- Release Date -->
-        <p class="card-text text-center text-muted mb-4">
-          {{ movie.release_date }}
-        </p>
-      </div>
+      <!-- Release Date -->
+      <p class="card-text text-center text-muted mb-4">
+        {{ movie.release_date }}
+      </p>
+    </div>
 
-      <!-- Card Footer with Actions -->
-      <div class="card-footer text-muted d-flex justify-content-around">
-        <!-- View Details Button -->
-        <button
-            @click="viewDetails"
-            type="button"
-            class="btn btn-info"
-        >
-          <font-awesome-icon :icon="['fas', 'eye']" />
-        </button>
+    <!-- Card Footer with Actions -->
+    <div class="card-footer text-muted d-flex justify-content-around">
+      <!-- View Details Button -->
+      <button
+          @click="viewDetails"
+          type="button"
+          class="btn btn-info"
+      >
+        <font-awesome-icon :icon="['fas', 'eye']" />
+      </button>
 
-        <!-- Favorite Button -->
-        <button
-            v-if="loginStatus"
-            @click="toggleFavorite"
-            type="button"
-            :class="['btn', !isFavorite ? 'btn-outline-primary' : 'btn-primary']"
-        >
-          <font-awesome-icon :icon="['fas', 'heart']" />
-        </button>
-      </div>
+      <!-- Favorite Button -->
+      <button
+          v-if="loginStatus"
+          @click="toggleFavorite"
+          type="button"
+          :class="['btn', !isFavorite ? 'btn-outline-primary' : 'btn-primary']"
+      >
+        <font-awesome-icon :icon="['fas', 'heart']" />
+      </button>
     </div>
   </div>
 </template>

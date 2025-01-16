@@ -17,7 +17,7 @@ export default [
   {
     name: 'search-movie',
     path: '/search-movie/:query?',
-    component: () => import('../pages/SearchMovie/SearchMovie.vue'),
+    component: () => import('../pages/SearchMovie.vue'),
   },
   {
     name: 'about-us',

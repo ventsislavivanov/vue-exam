@@ -48,7 +48,7 @@ export default {
     </h2>
 
     <div class="row">
-      <div v-for="movie in popularMovies" :key="movie.id" class="col-lg-2">
+      <div v-for="movie in popularMovies" :key="movie.id" class="col-lg-2 pb-2">
         <Movie :movie="movie" @select="onSelect"/>
       </div>
     </div>
@@ -58,7 +58,7 @@ export default {
     </h2>
 
     <div class="row">
-      <div v-for="movie in inTheaterMovies" :key="movie.id" class="col-lg-2">
+      <div v-for="movie in inTheaterMovies" :key="movie.id" class="col-lg-2 pb-2">
         <Movie :movie="movie" @select="onSelect"/>
       </div>
     </div>
@@ -68,7 +68,7 @@ export default {
     </h2>
 
     <div class="row">
-      <div v-for="movie in kidsMovies" :key="movie.id" class="col-lg-2">
+      <div v-for="movie in kidsMovies" :key="movie.id" class="col-lg-2 pb-2">
         <Movie :movie="movie" @select="onSelect"/>
       </div>
     </div>
@@ -78,7 +78,7 @@ export default {
     </h2>
 
     <div class="row">
-      <div v-for="movie in bestDramaMovies" :key="movie.id" class="col-lg-2">
+      <div v-for="movie in bestDramaMovies" :key="movie.id" class="col-lg-2 pb-2">
         <Movie :movie="movie" @select="onSelect"/>
       </div>
     </div>
