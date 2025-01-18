@@ -38,7 +38,7 @@ async function onsubmit() {
 <template>
   <div class="container">
     <div class="container vh-100 d-flex justify-content-center align-items-center">
-      <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
+      <div class="card shadow-sm p-4 bg-dark-subtle" style="max-width: 400px; width: 100%;">
         <h3 class="text-center mb-4">
           Login
         </h3>
